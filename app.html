@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maturko – učionica</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="#" onclick="go('home');return false">Matur<span>ko</span></a>
+    <span id="crumb" style="color:var(--muted)"></span>
+    <div class="spacer"></div>
+    <span id="userName" style="color:var(--muted)"></span>
+    <div class="avatar" id="avatar"></div>
+    <button class="btn ghost" onclick="Auth.logout();location.href='index.html'">Odjava</button>
+  </header>
+  <div id="tabs" class="tabs hidden"></div>
+  <main class="page" id="main"></main>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

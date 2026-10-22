@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maturko – priprema za državnu maturu</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">Matur<span>ko</span></div>
+    <div class="spacer"></div>
+    <button class="btn ghost" onclick="openModal('login')">Prijava</button>
+    <button class="btn" onclick="openModal('signup')">Registracija</button>
+  </header>
+
+  <section class="hero">
+    <h1>Položi maturu bez stresa</h1>
+    <p>Lekcije, probni ispiti i ispiti iz prijašnjih godina za svaki predmet, organizirani u virtualnim učionicama kojima možeš pristupiti kad god želiš.</p>
+    <button class="btn" onclick="openModal('signup')">Započni</button>
+  </section>
+
+  <section class="section">
+    <h2>Sve što ti treba na jednome mjestu</h2>
+    <div class="features">
+      <div class="feature"><div class="icon">📚</div><h3>Učionice po predmetima</h3><p>Jedna učionica za svaki predmet s lekcijama, datotekama i videozapisima.</p></div>
+      <div class="feature"><div class="icon">📝</div><h3>Probni ispiti</h3><p>Ispiti iz prijašnjih godina i vježbe za uvježbavanje u stvarnim uvjetima.</p></div>
+      <div class="feature"><div class="icon">📢</div><h3>Obavijesti</h3><p>Budi u tijeku s novim gradivom i savjetima za ispit.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Cijena</h2>
+    <div class="price-box">
+      <div>Potpuni pristup</div>
+      <div class="price" id="price"></div>
+      <ul><li>Sve učionice po predmetima</li><li>Sve lekcije i probni ispiti</li><li>Novo gradivo redovito se dodaje</li></ul>
+      <button class="btn" onclick="openModal('signup')">Registriraj se</button>
+    </div>
+  </section>
+
+  <footer>© 2026 Maturko</footer>
+
+  <div class="overlay hidden" id="overlay" onclick="if(event.target===this)closeModal()">
+    <form class="modal" id="form">
+      <h3 id="title"></h3>
+      <label class="field" id="nameField">Ime i prezime<input id="name"></label>
+      <label class="field">E-adresa<input id="email" type="email" required></label>
+      <label class="field">Lozinka<input id="password" type="password" required></label>
+      <div class="error" id="error"></div>
+      <button class="btn" style="width:100%" id="submit"></button>
+      <div class="switch" id="switch"></div>
+    </form>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.getElementById("price").textContent = priceLabel();
+    if (Auth.current()) location.href = "app.html";
+    let mode = "signup";
+    function openModal(m) {
+      mode = m;
+      const s = m === "signup";
+      title.textContent = s ? "Izradi svoj račun" : "Prijava";
+      submit.textContent = s ? "Registriraj se" : "Prijavi se";
+      nameField.classList.toggle("hidden", !s);
+      document.getElementById("switch").innerHTML = s
+        ? 'Već imaš račun? <a onclick="openModal(\'login\')">Prijavi se</a>'
+        : 'Prvi put ovdje? <a onclick="openModal(\'signup\')">Registriraj se</a>';
+      error.textContent = "";
+      overlay.classList.remove("hidden");
+    }
+    function closeModal() { overlay.classList.add("hidden"); }
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const err = mode === "signup"
+        ? Auth.signup(name.value, email.value, password.value)
+        : Auth.login(email.value, password.value);
+      if (err) error.textContent = err; else location.href = "app.html";
+    });
+  </script>
+</body>
+</html>
