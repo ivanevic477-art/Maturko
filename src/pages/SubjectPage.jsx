@@ -1,0 +1,71 @@
+import { Navigate, useParams } from 'react-router-dom'
+import PageHeader from '../components/PageHeader'
+import { SUBJECTS } from '../data/subjects'
+
+function Exams({ subject }) {
+  return subject.exams.map((e) => (
+    <div className="item exam" key={e.title}>
+      <div className="dot">📝</div>
+      <div className="info">
+        <strong>{e.title}</strong>
+        <div className="muted">{e.subtitle}</div>
+        <div className="files">
+          {e.files.map((f) => (
+            <a
+              key={f.href}
+              className={`btn small ${f.solution ? '' : 'outline'}`}
+              href={f.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {f.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  ))
+}
+
+function Lessons({ subject }) {
+  return subject.lessons.map((lesson, i) => (
+    <details className="lesson" key={lesson.title}>
+      <summary>
+        <span className="num">{i + 1}</span>
+        {lesson.title}
+      </summary>
+      <ul>
+        {lesson.sublessons.map((sub) => (
+          <li key={sub.title}>
+            {sub.link
+              ? <a href={sub.link} target="_blank" rel="noopener noreferrer">{sub.title}</a>
+              : <span className="soon">{sub.title}</span>}
+          </li>
+        ))}
+      </ul>
+    </details>
+  ))
+}
+
+// kind: "ucionice" (gradivo) ili "probni-ispiti"
+export default function SubjectPage({ kind }) {
+  const { slug } = useParams()
+  const subject = SUBJECTS.find((s) => s.slug === slug)
+  if (!subject) return <Navigate to={`/${kind}`} replace />
+
+  const isExams = kind === 'probni-ispiti'
+  const list = isExams ? subject.exams : subject.lessons
+  return (
+    <>
+      <PageHeader
+        title={`${subject.name} – ${isExams ? 'probni ispiti' : 'gradivo'}`}
+        subtitle={isExams ? 'Rješavaj ispite u uvjetima sličnima stvarnoj maturi.' : 'Odaberi lekciju i otvori njezine podlekcije.'}
+        trail={[{ label: isExams ? 'Probni ispiti' : 'Učionice po predmetima', to: `/${kind}` }, { label: subject.name }]}
+      />
+      <section className="content">
+        {list.length === 0 ? <div className="empty">Sadržaj uskoro stiže.</div>
+          : isExams ? <Exams subject={subject} /> : <Lessons subject={subject} />}
+      </section>
+    </>
+  )
+}

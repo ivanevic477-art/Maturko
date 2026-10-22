@@ -1,0 +1,20 @@
+:root {
+  --blue: #1a73e8;
+  --blue-deep: #0b57d0;
+  --blue-soft: #e8f0fe;
+  --text: #202124;
+  --muted: #5f6368;
+
+  font: 17px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: #fff;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
