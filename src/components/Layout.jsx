@@ -1,12 +1,13 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../auth/useAuth'
 
 export default function Layout() {
   const { user, logOut } = useAuth()
+  const { pathname } = useLocation()
   return (
     <>
       <header className="topbar">
-        <Link to="/" className="brand" aria-label="Maturko – početna">
+        <Link to={user ? '/pocetna' : '/'} className="brand" aria-label="Maturko – početna">
           <img src="/maturko-logo.png" alt="Maturko" />
         </Link>
         <div className="actions">
@@ -24,7 +25,12 @@ export default function Layout() {
         </div>
       </header>
       <Outlet />
-      <footer className="footer">© 2026 Maturko</footer>
+      {pathname !== '/pocetna' && (
+        <footer className="footer">
+          <div>Made by Sindr</div>
+          <div>© 2026 Maturko</div>
+        </footer>
+      )}
     </>
   )
 }

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
 import { SUBJECTS } from '../data/subjects'
+import SubjectIcon from '../components/SubjectIcon'
 
 const SECTIONS = {
   ucionice: { title: 'Učionice po predmetima', subtitle: 'Odaberi predmet i otvori gradivo.' },
@@ -16,7 +17,7 @@ export default function SubjectList({ section }) {
         <div className="cards">
           {SUBJECTS.map((subj) => (
             <Link key={subj.slug} to={`/${section}/${subj.slug}`} className="card link-card">
-              <div className="icon">{subj.icon}</div>
+              <div className="icon"><SubjectIcon subject={subj} /></div>
               <h3>{subj.name}</h3>
             </Link>
           ))}

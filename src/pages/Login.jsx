@@ -5,7 +5,7 @@ import { useAuth } from '../auth/useAuth'
 export default function Login() {
   const { user, logIn } = useAuth()
   const location = useLocation()
-  const from = location.state?.from ?? '/'
+  const from = location.state?.from ?? '/pocetna'
   const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)

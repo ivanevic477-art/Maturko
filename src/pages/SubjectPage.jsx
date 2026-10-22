@@ -1,6 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
 import { SUBJECTS } from '../data/subjects'
+import { useProgress } from '../progress/useProgress'
 
 function Exams({ subject }) {
   return subject.exams.map((e) => (
@@ -28,15 +29,26 @@ function Exams({ subject }) {
 }
 
 function Lessons({ subject }) {
+  const { isDone, toggle, lessonProgress } = useProgress()
+  const progress = lessonProgress(subject)
   return subject.lessons.map((lesson, i) => (
     <details className="lesson" key={lesson.title}>
       <summary>
         <span className="num">{i + 1}</span>
         {lesson.title}
+        <span className="lesson-count">{progress[i].done}/{progress[i].total}</span>
       </summary>
       <ul>
-        {lesson.sublessons.map((sub) => (
+        {lesson.sublessons.map((sub, j) => (
           <li key={sub.title}>
+            <label className="check">
+              <input
+                type="checkbox"
+                checked={isDone(subject.slug, i, j)}
+                onChange={() => toggle(subject.slug, i, j)}
+                aria-label={`Označi kao naučeno: ${sub.title}`}
+              />
+            </label>
             {sub.link
               ? <a href={sub.link} target="_blank" rel="noopener noreferrer">{sub.title}</a>
               : <span className="soon">{sub.title}</span>}

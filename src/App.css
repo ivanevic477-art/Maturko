@@ -24,7 +24,8 @@
 }
 
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
   text-decoration: none;
   border: 1px solid var(--blue);
   border-radius: 999px;
@@ -120,9 +121,13 @@
 }
 
 .footer {
-  text-align: center;
-  color: var(--muted);
-  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: #000;
+  color: #fff;
+  padding: 22px 28px;
   font-size: 14px;
 }
 
@@ -185,3 +190,101 @@
 .lesson li:last-child { border-bottom: 0; }
 .lesson li a { color: var(--blue); }
 .lesson .soon { color: var(--muted); }
+
+.lesson-count { margin-left: auto; margin-right: 12px; font-size: 14px; color: var(--muted); font-weight: 400; }
+.lesson summary::after { margin-left: 0; }
+.lesson li { display: flex; align-items: center; gap: 12px; }
+.check input { width: 18px; height: 18px; accent-color: var(--blue); cursor: pointer; }
+
+.content.wide { max-width: 1000px; }
+.progress-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 18px; }
+.progress-card { background: #fff; border: 1px solid #dbe4f3; border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.pc-head { display: flex; align-items: center; gap: 10px; }
+.pc-head h3 { margin: 0; font-size: 19px; flex: 1; }
+.pc-icon { font-size: 26px; }
+.pc-percent { font-weight: 700; color: var(--blue-deep); }
+.bar { height: 12px; background: var(--blue-soft); border-radius: 999px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--blue-deep)); border-radius: 999px; transition: width 0.3s; }
+.pc-count { font-size: 14px; }
+.segments { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; height: 44px; }
+.segment { background: var(--blue-soft); border-radius: 6px; display: flex; align-items: flex-end; overflow: hidden; }
+.segment div { width: 100%; background: var(--blue); }
+.pc-notes { font-size: 14px; color: var(--muted); display: grid; gap: 2px; }
+.progress-card .btn { align-self: flex-start; margin-top: 4px; }
+
+/* landing page */
+.hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn.ghost-light { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.7); box-shadow: none; font-size: 18px; padding: 14px 30px; }
+.btn.ghost-light:hover { background: rgba(255, 255, 255, 0.15); }
+.hero .badge { display: inline-block; background: rgba(255, 255, 255, 0.18); border-radius: 999px; padding: 6px 16px; font-size: 15px; margin-bottom: 18px; }
+.trust { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px 48px; max-width: 900px; margin: -10px auto 0; padding: 10px 20px 0; }
+.trust-item { text-align: center; display: grid; }
+.trust-item strong { font-size: 30px; color: var(--blue-deep); line-height: 1.2; }
+.trust-item span { color: var(--muted); font-size: 14px; }
+.lead { color: var(--muted); max-width: 600px; margin: -4px auto 26px; }
+.cta .lead { margin-bottom: 20px; }
+.card h3 { margin: 8px 0; }
+.subject-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; background: var(--blue-soft); color: var(--blue-deep); font-weight: 500; text-decoration: none; transition: background 0.15s, transform 0.15s; }
+.pill:hover { background: #d2e3fc; transform: translateY(-2px); }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; counter-reset: step; }
+.step { text-align: center; padding: 10px 16px; }
+.step::before { counter-increment: step; content: counter(step); display: grid; place-items: center; width: 52px; height: 52px; margin: 0 auto 12px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 22px; font-weight: 600; }
+.step h3 { margin: 0 0 6px; }
+.step p { color: var(--muted); margin: 0; }
+.cta { background: var(--blue-soft); border-radius: 22px; text-align: center; padding: 44px 20px; }
+.cta h2 { margin: 0 0 10px; }
+
+.flag { height: 0.8em; width: auto; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15); vertical-align: -0.05em; }
+
+/* mobile */
+img { max-width: 100%; }
+.cards { grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); }
+.progress-grid { grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr)); }
+.btn, .pill, .lesson summary { min-height: 44px; }
+.btn { align-items: center; }
+
+@media (max-width: 640px) {
+  :root { font-size: 16px; }
+
+  .topbar { height: 60px; padding: 0 14px; }
+  .brand img { height: 36px; }
+  .actions { gap: 8px; }
+  .actions .btn { padding: 8px 14px; font-size: 15px; }
+  .greeting { display: none; }
+
+  .hero { padding: 56px 18px 90px; }
+  .hero h1 { font-size: 32px; }
+  .hero p { font-size: 17px; margin-bottom: 24px; }
+  .hero-actions { flex-direction: column; align-items: stretch; max-width: 320px; margin: 0 auto; }
+  .hero .btn, .btn.ghost-light { width: 100%; text-align: center; justify-content: center; font-size: 17px; padding: 13px 20px; }
+  .wave { height: 30px; }
+
+  .trust { gap: 14px 28px; }
+  .trust-item strong { font-size: 26px; }
+  .trust-item span { max-width: 140px; }
+
+  .section { padding: 36px 16px; }
+  .section h2 { font-size: 24px; }
+  .cta { padding: 32px 16px; }
+
+  .page-banner { padding: 26px 16px; }
+  .page-banner h1 { font-size: 26px; }
+  .content { padding: 22px 14px 40px; }
+
+  .item { flex-wrap: wrap; padding: 14px; }
+  .files .btn { flex: 1 1 calc(50% - 8px); text-align: center; justify-content: center; }
+
+  .lesson summary { padding: 14px 14px; font-size: 17px; gap: 10px; }
+  .lesson ul { padding: 4px 14px 12px 14px; }
+  .lesson li { padding: 12px 0; }
+  .check input { width: 22px; height: 22px; }
+  .lesson-count { margin-right: 6px; }
+
+  .progress-card { padding: 16px; }
+  .auth-wrap { padding: 28px 14px; }
+  .auth-card { padding: 24px 18px; border-radius: 18px; }
+  .field input { font-size: 16px; }
+
+  .footer { padding: 18px 16px; flex-direction: column; gap: 4px; }
+}

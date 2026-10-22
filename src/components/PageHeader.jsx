@@ -4,7 +4,7 @@ export default function PageHeader({ title, subtitle, trail }) {
   return (
     <div className="page-banner">
       <div className="crumbs">
-        <Link to="/">Početna</Link>
+        <Link to="/pocetna">Početna</Link>
         {trail.map((c) => (
           <span key={c.label}>
             {' › '}

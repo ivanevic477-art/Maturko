@@ -9,12 +9,14 @@ const makeLessons = () =>
   }))
 
 export const SUBJECTS = [
-  { slug: 'engleski', name: 'Engleski jezik', icon: '🇬🇧', exams: [], lessons: makeLessons() },
-  { slug: 'pig', name: 'Politika i gospodarstvo', icon: '🏛️', exams: [], lessons: makeLessons() },
+  { slug: 'engleski', group: 'obavezni', name: 'Engleski jezik', icon: '🇬🇧', flag: '/flags/gb.svg', exams: [], lessons: makeLessons() },
+  { slug: 'pig', group: 'izborni', name: 'Politika i gospodarstvo', icon: '🏛️', exams: [], lessons: makeLessons() },
   {
     slug: 'hrvatski',
+    group: 'obavezni',
     name: 'Hrvatski jezik',
-    icon: '📖',
+    icon: '🇭🇷',
+    flag: '/flags/hr.svg',
     exams: [
       {
         title: 'Državna matura – 1. rok',
@@ -28,6 +30,15 @@ export const SUBJECTS = [
     ],
     lessons: makeLessons(),
   },
-  { slug: 'matematika', name: 'Matematika', icon: '➗', exams: [], lessons: makeLessons() },
-  { slug: 'geografija', name: 'Geografija', icon: '🌍', exams: [], lessons: makeLessons() },
+  { slug: 'matematika', group: 'obavezni', name: 'Matematika', icon: '➗', exams: [], lessons: makeLessons() },
+  { slug: 'geografija', group: 'izborni', name: 'Geografija', icon: '🌍', exams: [], lessons: makeLessons() },
+  { slug: 'povijest', group: 'izborni', name: 'Povijest', icon: '🏺', exams: [], lessons: makeLessons() },
+  { slug: 'likovna-umjetnost', group: 'izborni', name: 'Likovna umjetnost', icon: '🎨', exams: [], lessons: makeLessons() },
+  { slug: 'fizika', group: 'izborni', name: 'Fizika', icon: '⚛️', exams: [], lessons: makeLessons() },
+  { slug: 'kemija', group: 'izborni', name: 'Kemija', icon: '🧪', exams: [], lessons: makeLessons() },
+  { slug: 'biologija', group: 'izborni', name: 'Biologija', icon: '🧬', exams: [], lessons: makeLessons() },
+  { slug: 'spanjolski', group: 'izborni', name: 'Španjolski jezik', icon: '🇪🇸', flag: '/flags/es.svg', exams: [], lessons: makeLessons() },
+  { slug: 'talijanski', group: 'izborni', name: 'Talijanski jezik', icon: '🇮🇹', flag: '/flags/it.svg', exams: [], lessons: makeLessons() },
+  { slug: 'latinski', group: 'izborni', name: 'Latinski jezik', icon: '🏛️', flag: '/flags/la.svg', exams: [], lessons: makeLessons() },
+  { slug: 'njemacki', group: 'izborni', name: 'Njemački jezik', icon: '🇩🇪', flag: '/flags/de.svg', exams: [], lessons: makeLessons() },
 ]
