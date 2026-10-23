@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../auth/useAuth'
+import { lessonsOf } from '../data/subjects'
 
 // DEMO: napredak se sprema u localStorage ovog preglednika, odvojeno po korisniku.
 const storageKey = (email) => `maturko_progress_${email}`
@@ -25,7 +26,7 @@ export function useProgress() {
   }
 
   const lessonProgress = (subject) =>
-    subject.lessons.map((lesson, i) => ({
+    lessonsOf(subject).map((lesson, i) => ({
       title: lesson.title,
       done: lesson.sublessons.filter((_, j) => isDone(subject.slug, i, j)).length,
       total: lesson.sublessons.length,

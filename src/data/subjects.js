@@ -1,6 +1,8 @@
 // Dodajte sadržaj ovdje, po predmetu.
 // exams:     { title: 'Probni ispit 1', subtitle: '2025./2026.', files: [{ label: 'Ispitna knjižica', href: '/ispiti/...pdf' }] }
 // lessons:   10 lekcija po predmetu, svaka s 5 podlekcija. Promijenite naslove ili dodajte poveznicu: { title: '1.1 Naslov', link: 'https://...' }
+import { ESSAY_GUIDE } from './essayMatura'
+
 // Privremeni nazivi: 10 lekcija × 5 podlekcija. Zamijenite ih pravim naslovima.
 const makeLessons = () =>
   Array.from({ length: 10 }, (_, i) => ({
@@ -8,8 +10,24 @@ const makeLessons = () =>
     sublessons: Array.from({ length: 5 }, (_, j) => ({ title: `Podlekcija ${i + 1}.${j + 1}`, link: '' })),
   }))
 
+// Sve lekcije predmeta kao jedan popis (redoslijed određuje i ključ za spremanje napretka).
+export const lessonsOf = (subject) =>
+  subject.sections ? subject.sections.flatMap((s) => s.lessons) : subject.lessons
+
 export const SUBJECTS = [
-  { slug: 'engleski', group: 'obavezni', name: 'Engleski jezik', icon: '🇬🇧', flag: '/flags/gb.svg', exams: [], lessons: makeLessons() },
+  {
+    slug: 'engleski',
+    group: 'obavezni',
+    name: 'Engleski jezik',
+    icon: '🇬🇧',
+    flag: '/flags/gb.svg',
+    exams: [],
+    // Predmet može imati "sections" (npr. Teorija, Esej) umjesto jednostavnog popisa "lessons".
+    sections: [
+      { title: 'Teorija', lessons: makeLessons() },
+      { title: 'Esej', lessons: [], articles: [ESSAY_GUIDE] },
+    ],
+  },
   { slug: 'pig', group: 'izborni', name: 'Politika i gospodarstvo', icon: '🏛️', exams: [], lessons: makeLessons() },
   {
     slug: 'hrvatski',

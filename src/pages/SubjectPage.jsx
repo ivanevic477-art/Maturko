@@ -1,6 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
-import { SUBJECTS } from '../data/subjects'
+import Article from '../components/Article'
+import { SUBJECTS, lessonsOf } from '../data/subjects'
 import { useProgress } from '../progress/useProgress'
 
 function Exams({ subject }) {
@@ -28,13 +29,16 @@ function Exams({ subject }) {
   ))
 }
 
-function Lessons({ subject }) {
+// offset = broj lekcija u prethodnim odjeljcima (ključ napretka je redni broj lekcije u cijelom predmetu)
+function Lessons({ subject, lessons, offset = 0 }) {
   const { isDone, toggle, lessonProgress } = useProgress()
   const progress = lessonProgress(subject)
-  return subject.lessons.map((lesson, i) => (
+  return lessons.map((lesson, n) => {
+    const i = offset + n
+    return (
     <details className="lesson" key={lesson.title}>
       <summary>
-        <span className="num">{i + 1}</span>
+        <span className="num">{n + 1}</span>
         {lesson.title}
         <span className="lesson-count">{progress[i].done}/{progress[i].total}</span>
       </summary>
@@ -56,7 +60,27 @@ function Lessons({ subject }) {
         ))}
       </ul>
     </details>
-  ))
+    )
+  })
+}
+
+// Predmeti s odjeljcima (npr. Teorija, Esej): svaki se odjeljak otvara klikom.
+function Sections({ subject }) {
+  let offset = 0
+  return subject.sections.map((section) => {
+    const start = offset
+    offset += section.lessons.length
+    return (
+      <details className="lesson section-group" key={section.title}>
+        <summary>{section.title}</summary>
+        <div className="section-body">
+          {section.lessons.length === 0 && !section.articles?.length && <div className="empty">Sadržaj uskoro stiže.</div>}
+          {section.articles?.map((a) => <Article key={a.title} article={a} />)}
+          {section.lessons.length > 0 && <Lessons subject={subject} lessons={section.lessons} offset={start} />}
+        </div>
+      </details>
+    )
+  })
 }
 
 // kind: "ucionice" (gradivo) ili "probni-ispiti"
@@ -66,7 +90,8 @@ export default function SubjectPage({ kind }) {
   if (!subject) return <Navigate to={`/${kind}`} replace />
 
   const isExams = kind === 'probni-ispiti'
-  const list = isExams ? subject.exams : subject.lessons
+  const list = isExams ? subject.exams : lessonsOf(subject)
+  const hasSections = !isExams && Boolean(subject.sections)
   return (
     <>
       <PageHeader
@@ -75,8 +100,9 @@ export default function SubjectPage({ kind }) {
         trail={[{ label: isExams ? 'Probni ispiti' : 'Učionice po predmetima', to: `/${kind}` }, { label: subject.name }]}
       />
       <section className="content">
-        {list.length === 0 ? <div className="empty">Sadržaj uskoro stiže.</div>
-          : isExams ? <Exams subject={subject} /> : <Lessons subject={subject} />}
+        {hasSections ? <Sections subject={subject} />
+          : list.length === 0 ? <div className="empty">Sadržaj uskoro stiže.</div>
+          : isExams ? <Exams subject={subject} /> : <Lessons subject={subject} lessons={list} />}
       </section>
     </>
   )
