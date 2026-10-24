@@ -10,6 +10,9 @@ const makeLessons = () =>
     sublessons: Array.from({ length: 5 }, (_, j) => ({ title: `Podlekcija ${i + 1}.${j + 1}`, link: '' })),
   }))
 
+// Postavlja stvarne naslove prvim lekcijama: titled(makeLessons(), ['Prva', 'Druga'])
+const titled = (lessons, titles) => lessons.map((l, i) => (titles[i] ? { ...l, title: titles[i] } : l))
+
 // Sve lekcije predmeta kao jedan popis (redoslijed određuje i ključ za spremanje napretka).
 export const lessonsOf = (subject) =>
   subject.sections ? subject.sections.flatMap((s) => s.lessons) : subject.lessons
@@ -28,7 +31,7 @@ export const SUBJECTS = [
       { title: 'Esej', lessons: [], articles: [ESSAY_GUIDE] },
     ],
   },
-  { slug: 'pig', group: 'izborni', name: 'Politika i gospodarstvo', icon: '🏛️', exams: [], lessons: makeLessons() },
+  { slug: 'pig', group: 'izborni', name: 'Politika i gospodarstvo', icon: '🏛️', exams: [], lessons: titled(makeLessons(), ['Politika']) },
   {
     slug: 'hrvatski',
     group: 'obavezni',
