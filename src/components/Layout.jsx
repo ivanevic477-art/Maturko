@@ -1,5 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../auth/useAuth'
+import MenuButton from './MenuButton'
 
 export default function Layout() {
   const { user, logOut } = useAuth()
@@ -7,9 +8,12 @@ export default function Layout() {
   return (
     <>
       <header className="topbar">
-        <Link to={user ? '/pocetna' : '/'} className="brand" aria-label="Maturko – početna">
-          <img src="/maturko-logo.png" alt="Maturko" />
-        </Link>
+        <div className="brand-group">
+          <Link to={user ? '/pocetna' : '/'} className="brand" aria-label="Maturko – početna">
+            <img src="/maturko-logo.png" alt="Maturko" />
+          </Link>
+          <MenuButton />
+        </div>
         <div className="actions">
           {user ? (
             <>

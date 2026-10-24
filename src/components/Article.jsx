@@ -9,6 +9,28 @@ function Rich({ text }) {
   })
 }
 
+// Stavka popisa koja se otvara klikom i prikazuje objašnjenje s primjerima (npr. Passive).
+function Detail({ item }) {
+  return (
+    <details className="a-detail">
+      <summary>{item.title}</summary>
+      {item.details.map((d) => (
+        <div key={d.heading} className="a-detail-body">
+          <strong>{d.heading}</strong>
+          <ul>
+            {d.examples.map((e) => (
+              <li key={e.label}>
+                <span className="a-ex-label">{e.label}:</span> <span lang="en">{e.text}</span>
+                {e.translation && <span className="muted"> ({e.translation})</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </details>
+  )
+}
+
 function Block({ block }) {
   switch (block.type) {
     case 'p':
@@ -21,7 +43,13 @@ function Block({ block }) {
       return <h3 className="a-h">{block.text}</h3>
     case 'list': {
       const List = block.ordered ? 'ol' : 'ul'
-      return <List className="a-list">{block.items.map((t) => <li key={t}>{t}</li>)}</List>
+      return (
+        <List className="a-list">
+          {block.items.map((item) => (typeof item === 'string'
+            ? <li key={item}>{item}</li>
+            : <li key={item.title}><Detail item={item} /></li>))}
+        </List>
+      )
     }
     case 'outline':
       return (

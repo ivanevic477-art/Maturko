@@ -13,7 +13,7 @@ const ratio = (l) => l.done / l.total
 
 function Card({ subject }) {
   const { subjectProgress } = useProgress()
-  const { lessons, done, total, percent } = subjectProgress(subject)
+  const { lessons, done, total, percent, completed } = subjectProgress(subject)
   const started = done > 0
   const strongest = started ? lessons.reduce((a, b) => (ratio(b) > ratio(a) ? b : a)) : null
   const weakest = started ? lessons.reduce((a, b) => (ratio(b) < ratio(a) ? b : a)) : null
@@ -23,7 +23,7 @@ function Card({ subject }) {
       <div className="pc-head">
         <span className="pc-icon"><SubjectIcon subject={subject} /></span>
         <h3>{subject.name}</h3>
-        <span className="pc-percent">{percent}%</span>
+        <span className="pc-percent">{completed ? '🎓' : `${percent}%`}</span>
       </div>
       <div
         className="bar"
@@ -35,7 +35,7 @@ function Card({ subject }) {
       >
         <div className="bar-fill" style={{ width: `${percent}%` }} />
       </div>
-      <div className="muted pc-count">{done} / {total} podlekcija</div>
+      <div className="muted pc-count">{completed ? 'Tečaj završen' : `${done} / ${total} dovršenih stavki`}</div>
 
       <div className="segments" aria-label="Napredak po lekcijama">
         {lessons.map((l) => (

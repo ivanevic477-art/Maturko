@@ -2,11 +2,13 @@
 // exams:     { title: 'Probni ispit 1', subtitle: '2025./2026.', files: [{ label: 'Ispitna knjižica', href: '/ispiti/...pdf' }] }
 // lessons:   10 lekcija po predmetu, svaka s 5 podlekcija. Promijenite naslove ili dodajte poveznicu: { title: '1.1 Naslov', link: 'https://...' }
 import { ESSAY_GUIDE } from './essayMatura'
+import { ESSAY_TEST } from './essayTest'
 
 // Privremeni nazivi: 10 lekcija × 5 podlekcija. Zamijenite ih pravim naslovima.
 const makeLessons = () =>
   Array.from({ length: 10 }, (_, i) => ({
     title: `Lekcija ${i + 1}`,
+    quiz: [], // banka pitanja za kviz, vidi quiz/quizUtils.js
     sublessons: Array.from({ length: 5 }, (_, j) => ({ title: `Podlekcija ${i + 1}.${j + 1}`, link: '' })),
   }))
 
@@ -16,6 +18,9 @@ const titled = (lessons, titles) => lessons.map((l, i) => (titles[i] ? { ...l, t
 // Sve lekcije predmeta kao jedan popis (redoslijed određuje i ključ za spremanje napretka).
 export const lessonsOf = (subject) =>
   subject.sections ? subject.sections.flatMap((s) => s.lessons) : subject.lessons
+
+// Obavezni ispit iz eseja predmeta (ako ga ima): piše se u odjeljku Esej.
+export const essayTestOf = (subject) => subject.sections?.find((s) => s.essayTest)?.essayTest ?? null
 
 export const SUBJECTS = [
   {
@@ -28,7 +33,7 @@ export const SUBJECTS = [
     // Predmet može imati "sections" (npr. Teorija, Esej) umjesto jednostavnog popisa "lessons".
     sections: [
       { title: 'Teorija', lessons: makeLessons() },
-      { title: 'Esej', lessons: [], articles: [ESSAY_GUIDE] },
+      { title: 'Esej', lessons: [], articles: [ESSAY_GUIDE], essayTest: ESSAY_TEST },
     ],
   },
   { slug: 'pig', group: 'izborni', name: 'Politika i gospodarstvo', icon: '🏛️', exams: [], lessons: titled(makeLessons(), ['Politika']) },

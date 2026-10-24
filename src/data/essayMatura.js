@@ -140,7 +140,67 @@ export const ESSAY_GUIDE = {
     {
       type: 'list',
       items: [
-        'Passive',
+        {
+          title: 'Passive',
+          details: [
+            {
+              heading: 'Present Simple (is / are + 3. oblik)',
+              examples: [
+                { label: 'Aktiv', text: 'People speak English in many countries.' },
+                { label: 'Pasiv', text: 'English is spoken in many countries.', translation: 'Engleski se govori u mnogim zemljama.' },
+              ],
+            },
+            {
+              heading: 'Present Continuous (is / are being + 3. oblik)',
+              examples: [
+                { label: 'Aktiv', text: 'Someone is checking the documents now.' },
+                { label: 'Pasiv', text: 'The documents are being checked.' },
+              ],
+            },
+            {
+              heading: 'Past Simple (was / were + 3. oblik)',
+              examples: [
+                { label: 'Aktiv', text: 'Someone delivered the package this morning.' },
+                { label: 'Pasiv', text: 'The package was delivered this morning.' },
+              ],
+            },
+            {
+              heading: 'Past Continuous (was / were being + 3. oblik)',
+              examples: [
+                { label: 'Aktiv', text: 'They were painting the walls.' },
+                { label: 'Pasiv', text: 'The walls were being painted.' },
+              ],
+            },
+            {
+              heading: 'Present Perfect (has / have been + 3. oblik)',
+              examples: [
+                { label: 'Aktiv', text: 'They have finished the project.' },
+                { label: 'Pasiv', text: 'The project has been finished.' },
+              ],
+            },
+            {
+              heading: 'Past Perfect (had been + 3. oblik)',
+              examples: [
+                { label: 'Aktiv', text: 'They had already solved the problem.' },
+                { label: 'Pasiv', text: 'The problem had already been solved.' },
+              ],
+            },
+            {
+              heading: 'Future Simple (will be + 3. oblik)',
+              examples: [
+                { label: 'Aktiv', text: 'They will announce the results.' },
+                { label: 'Pasiv', text: 'The results will be announced.' },
+              ],
+            },
+            {
+              heading: 'Modalni glagoli (can / must / should / would be + 3. oblik)',
+              examples: [
+                { label: 'Aktiv', text: 'You must complete the application today.' },
+                { label: 'Pasiv', text: 'The application must be completed today.' },
+              ],
+            },
+          ],
+        },
         'Modal Verbs of Probability',
         'Conditional Clauses',
         'Participle Clauses',
