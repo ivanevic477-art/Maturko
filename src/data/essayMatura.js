@@ -201,7 +201,62 @@ export const ESSAY_GUIDE = {
             },
           ],
         },
-        'Modal Verbs of Probability',
+        {
+          title: 'Modal Verbs of Probability',
+          details: [
+            { group: 'Present & Future Probability' },
+            {
+              heading: 'Must (90–100% certainty)',
+              text: 'Used for strong logical deductions based on evidence.',
+              examples: [{ label: 'Example', text: 'His lights are on, so he must be home.' }],
+            },
+            {
+              heading: "Can't / Couldn't (0–10% certainty)",
+              text: 'Used for perceived impossibility.',
+              examples: [{ label: 'Example', text: "It's midnight; she can't be at school." }],
+            },
+            {
+              heading: "Will / Won't (High certainty / prediction)",
+              text: 'Used for expected future events or high confidence.',
+              examples: [{ label: 'Example', text: 'The shop will be busy tomorrow.' }],
+            },
+            {
+              heading: "Should / Shouldn't (Expected outcome)",
+              text: 'Used for normal or logical expectations, not for unwanted negatives.',
+              examples: [{ label: 'Example', text: 'The package should arrive on Friday.' }],
+            },
+            {
+              heading: 'May / Might / Could (30–70% uncertainty)',
+              text: 'Used for present or future possibilities.',
+              notes: ['May is slightly more formal; might and could are more tentative.'],
+              examples: [{ label: 'Example', text: 'We might order pizza tonight.' }],
+            },
+            {
+              group: 'Past Probability',
+              intro: 'To express deductions or guesses about the past, use a modal verb + have + past participle.',
+            },
+            {
+              heading: 'Must have',
+              text: 'Strong logical conclusion about a past event.',
+              examples: [{ label: 'Example', text: "The car isn't in the garage. John must have taken it." }],
+            },
+            {
+              heading: "Can't have / Couldn't have",
+              text: 'Strong belief that a past event did not happen.',
+              examples: [{ label: 'Example', text: "She hates rap music. She can't have gone to the concert." }],
+            },
+            {
+              heading: 'May have / Might have / Could have',
+              text: '50% or lower certainty that something happened.',
+              examples: [{ label: 'Example', text: "I don't know for sure, but I might have seen a UFO." }],
+            },
+            {
+              heading: 'Should have',
+              text: 'Something that was expected to happen in the past (but may not have).',
+              examples: [{ label: 'Example', text: 'You should have left your jacket at home; it was so hot.' }],
+            },
+          ],
+        },
         'Conditional Clauses',
         'Participle Clauses',
         'Phrasal Verbs',

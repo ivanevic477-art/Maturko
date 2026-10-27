@@ -1,10 +1,17 @@
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/useAuth'
 import MenuButton from './MenuButton'
 
 export default function Layout() {
   const { user, logOut } = useAuth()
   const { pathname } = useLocation()
+  const navigate = useNavigate()
+
+  // Odjava vraća na landing stranicu (navigate prije odjave, da zaštićene stranice ne preusmjere na registraciju)
+  function handleLogOut() {
+    navigate('/')
+    logOut()
+  }
   return (
     <>
       <header className="topbar">
@@ -18,7 +25,7 @@ export default function Layout() {
           {user ? (
             <>
               <span className="greeting">Bok, {user.name.split(' ')[0]}!</span>
-              <button type="button" className="btn outline" onClick={logOut}>Odjava</button>
+              <button type="button" className="btn outline" onClick={handleLogOut}>Odjava</button>
             </>
           ) : (
             <>

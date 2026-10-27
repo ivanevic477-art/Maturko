@@ -382,3 +382,6 @@ img { max-width: 100%; }
 .a-detail-body { margin: 8px 0 6px; padding: 10px 14px; background: #f3f7fe; border-left: 4px solid var(--blue); border-radius: 10px; }
 .a-detail-body ul { margin: 6px 0 0; padding-left: 18px; }
 .a-ex-label { font-weight: 600; }
+.a-detail-group h4 { margin: 18px 0 4px; color: var(--blue-deep); font-size: 17px; }
+.a-detail-group p { margin: 0 0 6px; color: var(--muted); }
+.a-detail-text { margin: 4px 0 0; }

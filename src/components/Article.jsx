@@ -14,9 +14,16 @@ function Detail({ item }) {
   return (
     <details className="a-detail">
       <summary>{item.title}</summary>
-      {item.details.map((d) => (
+      {item.details.map((d) => (d.group ? (
+        <div key={d.group} className="a-detail-group">
+          <h4>{d.group}</h4>
+          {d.intro && <p>{d.intro}</p>}
+        </div>
+      ) : (
         <div key={d.heading} className="a-detail-body">
           <strong>{d.heading}</strong>
+          {d.text && <p className="a-detail-text">{d.text}</p>}
+          {d.notes?.map((n) => <p key={n} className="a-detail-text">{n}</p>)}
           <ul>
             {d.examples.map((e) => (
               <li key={e.label}>
@@ -26,7 +33,7 @@ function Detail({ item }) {
             ))}
           </ul>
         </div>
-      ))}
+      )))}
     </details>
   )
 }
