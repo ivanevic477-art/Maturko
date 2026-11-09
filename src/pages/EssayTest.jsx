@@ -1,3 +1,4 @@
+import { TriangleAlert } from 'lucide-react'
 import { useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
@@ -93,10 +94,10 @@ function EssayRun({ subject, test }) {
             <div>{result.wordCount} riječi</div>
             <strong>
               {result.passed
-                ? 'Položeno! Dio Esej je dovršen. ✍️'
+                ? 'Položeno! Dio Esej je dovršen.'
                 : `Za prolaz je potrebno ${test.passPercent} bodova bez ikakvih upozorenja. Popravi esej ili napiši novi.`}
             </strong>
-            {result.failReasons.map((r) => <div key={r} className="essay-warning">⚠️ {r}</div>)}
+            {result.failReasons.map((r) => <div key={r} className="essay-warning"><TriangleAlert className="ic" aria-hidden="true" /> {r}</div>)}
             <div className="quiz-actions">
               <button type="button" className="btn" onClick={() => { setResult(null); window.scrollTo(0, 0) }}>Popravi esej</button>
               <button type="button" className="btn outline" onClick={newTopic}>Nova tema</button>

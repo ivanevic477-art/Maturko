@@ -28,7 +28,7 @@ export default function FinalExam() {
       pool={lessonsOf(subject).flatMap((l) => l.quiz ?? [])}
       count={FINAL_QUESTIONS}
       passPercent={FINAL_PASS_PERCENT}
-      passMessage="Položeno! Tečaj je završen. 🎓"
+      passMessage="Položeno! Tečaj je završen."
       back={back}
       onFinish={(percent) => recordFinal(slug, percent)}
     />

@@ -1,3 +1,4 @@
+import { GraduationCap, Lock, NotebookPen, PenLine } from 'lucide-react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { FINAL_PASS_PERCENT, FINAL_QUESTIONS, PASS_PERCENT, QUIZ_QUESTIONS } from '../quiz/quizUtils'
 import PageHeader from '../components/PageHeader'
@@ -8,7 +9,7 @@ import { useProgress } from '../progress/useProgress'
 function Exams({ subject }) {
   return subject.exams.map((e) => (
     <div className="item exam" key={e.title}>
-      <div className="dot">📝</div>
+      <div className="dot"><NotebookPen size={20} aria-hidden="true" /></div>
       <div className="info">
         <strong>{e.title}</strong>
         <div className="muted">{e.subtitle}</div>
@@ -100,7 +101,7 @@ function FinalExamCard({ subject }) {
   if (!final) {
     return (
       <div className="final-exam">
-        <div><strong>🎓 Završni ispit</strong><div className="muted">Pitanja uskoro stižu.</div></div>
+        <div><strong><GraduationCap className="ic" aria-hidden="true" /> Završni ispit</strong><div className="muted">Pitanja uskoro stižu.</div></div>
       </div>
     )
   }
@@ -109,7 +110,7 @@ function FinalExamCard({ subject }) {
   return (
     <div className={`final-exam ${completed ? 'passed' : ''}`}>
       <div>
-        <strong>{completed ? '🎓 Tečaj završen!' : '🎓 Završni ispit (obavezan)'}</strong>
+        <strong><GraduationCap className="ic" aria-hidden="true" /> {completed ? 'Tečaj završen!' : 'Završni ispit (obavezan)'}</strong>
         <div className="muted">
           {final.unlocked
             ? `${count} nasumičnih pitanja iz svih lekcija · za prolaz ${FINAL_PASS_PERCENT}%`
@@ -119,7 +120,7 @@ function FinalExamCard({ subject }) {
       </div>
       {final.unlocked
         ? <Link to={`/ucionice/${subject.slug}/zavrsni`} className="btn small">{final.best === null ? 'Započni ispit' : 'Ponovi ispit'}</Link>
-        : <button type="button" className="btn small" disabled>🔒 Zaključano</button>}
+        : <button type="button" className="btn small" disabled><Lock className="ic" aria-hidden="true" /> Zaključano</button>}
     </div>
   )
 }
@@ -131,7 +132,7 @@ function EssayTestCard({ subject, test }) {
   return (
     <div className={`final-exam ${essay?.passed ? 'passed' : ''}`}>
       <div>
-        <strong>{essay?.passed ? '✍️ Esej položen!' : '✍️ Ispit iz eseja (obavezan)'}</strong>
+        <strong><PenLine className="ic" aria-hidden="true" /> {essay?.passed ? 'Esej položen!' : 'Ispit iz eseja (obavezan)'}</strong>
         <div className="muted">
           Napiši esej na zadanu temu · ocjenjuje se prema kriterijima iz vodiča · za prolaz {test.passPercent}%
           {essay?.best != null && ` · najbolji rezultat: ${essay.best}%${essay.passed ? ' ✓' : ''}`}

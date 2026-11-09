@@ -1,3 +1,4 @@
+import { Check, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHeader from './PageHeader'
@@ -69,7 +70,7 @@ export default function QuizRunner({ title, subtitle, trail, pool, count, passPe
             return (
               <div key={q.q} className={`review ${ok ? 'ok' : 'bad'}`}>
                 <strong>{i + 1}. {q.q}</strong>
-                <div>Tvoj odgovor: {q.options[answers[i]]} {ok ? '✓' : '✗'}</div>
+                <div>Tvoj odgovor: {q.options[answers[i]]} {ok ? <Check className="ic ok-ic" aria-label="točno" /> : <X className="ic bad-ic" aria-label="netočno" />}</div>
                 {!ok && <div>Točan odgovor: <strong>{q.options[q.correct]}</strong></div>}
               </div>
             )
