@@ -1,8 +1,11 @@
+import { ArrowRight, BicepsFlexed, BookOpenCheck, GraduationCap, Layers, Pin } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
 import { SUBJECTS } from '../data/subjects'
 import SubjectIcon from '../components/SubjectIcon'
 import { useProgress } from '../progress/useProgress'
+import ProgressRing from '../components/ProgressRing'
+import { Tilt } from '../components/motion'
 
 const GROUPS = [
   { id: 'obavezni', title: 'Obavezni predmeti' },
@@ -19,11 +22,11 @@ function Card({ subject }) {
   const weakest = started ? lessons.reduce((a, b) => (ratio(b) < ratio(a) ? b : a)) : null
 
   return (
-    <div className="progress-card">
+    <Tilt className={`progress-card ${completed ? 'is-complete' : ''}`} max={6}>
       <div className="pc-head">
         <span className="pc-icon"><SubjectIcon subject={subject} /></span>
         <h3>{subject.name}</h3>
-        <span className="pc-percent">{completed ? '🎓' : `${percent}%`}</span>
+        <span className="pc-percent">{completed ? <GraduationCap aria-label="Završeno" /> : `${percent}%`}</span>
       </div>
       <div
         className="bar"
@@ -47,13 +50,46 @@ function Card({ subject }) {
 
       {started && (
         <div className="pc-notes">
-          <div>💪 Najjače: <strong>{strongest.title}</strong></div>
-          {weakest.title !== strongest.title && <div>📌 Treba vježbu: <strong>{weakest.title}</strong></div>}
+          <div><BicepsFlexed className="ic" aria-hidden="true" /> Najjače: <strong>{strongest.title}</strong></div>
+          {weakest.title !== strongest.title && <div><Pin className="ic" aria-hidden="true" /> Treba vježbu: <strong>{weakest.title}</strong></div>}
         </div>
       )}
       <Link to={`/ucionice/${subject.slug}`} className="btn small">
         {started ? 'Nastavi učiti' : 'Započni'}
       </Link>
+    </Tilt>
+  )
+}
+
+// Pregled na vrhu: prosjek započetih predmeta i ukupni brojevi.
+function Overview() {
+  const { subjectProgress } = useProgress()
+  const rows = SUBJECTS.map((s) => subjectProgress(s))
+  const started = rows.filter((r) => r.done > 0)
+  const avg = started.length ? Math.round(started.reduce((n, r) => n + r.percent, 0) / started.length) : 0
+  const lessonsDone = rows.reduce((n, r) => n + r.lessons.filter((l) => l.done === l.total).length, 0)
+  const lessonsTotal = rows.reduce((n, r) => n + r.lessons.length, 0)
+  const courses = rows.filter((r) => r.completed).length
+  const stats = [
+    { icon: Layers, value: `${started.length} / ${SUBJECTS.length}`, label: 'započetih predmeta' },
+    { icon: BookOpenCheck, value: `${lessonsDone} / ${lessonsTotal}`, label: 'dovršenih lekcija' },
+    { icon: GraduationCap, value: courses, label: 'završenih tečajeva' },
+  ]
+  return (
+    <div className="pg-overview">
+      <div className="pg-ring">
+        <ProgressRing percent={avg} label="Prosjek započetih predmeta" />
+        <div className="pg-ring-label"><strong>{avg}%</strong><span>prosjek započetih</span></div>
+      </div>
+      <div className="pg-stats">
+        {stats.map((st) => (
+          <div className="pg-stat" key={st.label}>
+            <span className="pg-stat-icon"><st.icon size={20} aria-hidden="true" /></span>
+            <div><strong>{st.value}</strong><span>{st.label}</span></div>
+          </div>
+        ))}
+        <Link to="/ucionice" className="btn pg-cta">Otvori učionice <ArrowRight className="ic" aria-hidden="true" /></Link>
+      </div>
     </div>
   )
 }
@@ -67,6 +103,7 @@ export default function Progress() {
         trail={[{ label: 'Moj napredak' }]}
       />
       <section className="content wide">
+        <Overview />
         {GROUPS.map((g) => (
           <div key={g.id}>
             <h2 className="topic">{g.title}</h2>

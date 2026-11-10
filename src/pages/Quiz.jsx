@@ -27,7 +27,7 @@ export default function Quiz() {
       pool={lesson.quiz ?? []}
       count={QUIZ_QUESTIONS}
       passPercent={PASS_PERCENT}
-      passMessage="Položeno! Ova lekcija je dovršena. 🎉"
+      passMessage="Položeno! Ova lekcija je dovršena."
       back={back}
       onFinish={(percent) => recordQuiz(slug, index, percent)}
     />

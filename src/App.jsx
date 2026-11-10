@@ -15,6 +15,7 @@ import Login from './pages/Login'
 import { AuthProvider } from './auth/AuthContext'
 import RequireAuth from './auth/RequireAuth'
 import './App.css'
+import './theme.css'
 
 export default function App() {
   return (

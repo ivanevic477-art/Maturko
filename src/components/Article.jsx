@@ -1,3 +1,4 @@
+import { FileText, Lightbulb, Ruler } from 'lucide-react'
 // Prikazuje članak zadan blokovima (vidi data/essayMatura.js) – bez Word datoteke, izravno u aplikaciji.
 
 // **podebljano** i *kurziv* u običan tekst
@@ -43,9 +44,9 @@ function Block({ block }) {
     case 'p':
       return <p><Rich text={block.text} /></p>
     case 'note':
-      return <div className="a-note">💡 <Rich text={block.text} /></div>
+      return <div className="a-note"><Lightbulb className="ic" aria-hidden="true" /> <Rich text={block.text} /></div>
     case 'tip':
-      return <div className="a-tip"><strong>📏 Važno:</strong> <Rich text={block.text} /></div>
+      return <div className="a-tip"><strong><Ruler className="ic" aria-hidden="true" /> Važno:</strong> <Rich text={block.text} /></div>
     case 'h':
       return <h3 className="a-h">{block.text}</h3>
     case 'list': {
@@ -106,7 +107,7 @@ export default function Article({ article }) {
   return (
     <details className="lesson">
       <summary>
-        <span className="num">📄</span>
+        <span className="num"><FileText size={17} aria-hidden="true" /></span>
         {article.title}
       </summary>
       <div className="article">

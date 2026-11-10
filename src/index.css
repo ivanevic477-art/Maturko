@@ -18,3 +18,8 @@
 body {
   margin: 0;
 }
+
+/* podnožje uvijek na dnu kratkih stranica */
+#root { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+#root > * { flex-shrink: 0; width: 100%; }
+#root > .site-footer { margin-top: auto; }
